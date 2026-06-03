@@ -2,69 +2,250 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Приглашение</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на прогулку</title>
     <style>
-        /* Добавим нежный цветочный фон */
         body { 
             background: linear-gradient(135deg, #2d1b2e 0%, #0f0c29 100%); 
             color: #fff; 
-            font-family: 'Segoe UI', sans-serif; 
+            font-family: 'Segoe UI', 'Roboto', sans-serif; 
             text-align: center; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
             margin: 0; 
-            background-image: radial-gradient(circle at 20% 30%, rgba(255, 183, 197, 0.1) 0%, transparent 50%);
+            padding: 20px;
+            background-image: radial-gradient(circle at 20% 30%, rgba(255, 183, 197, 0.15) 0%, transparent 50%);
         }
-        .page { display: none; padding: 20px; width: 100%; max-width: 500px; }
-        .active { display: block; }
-        .btn { padding: 15px 30px; border-radius: 30px; border: none; cursor: pointer; font-weight: bold; margin: 10px; transition: 0.3s; font-size: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        #yes-btn { background: #ffb7c5; color: #333; }
-        #no-btn { border: 2px solid #ffb7c5; background: transparent; color: #ffb7c5; position: relative; }
         
-        /* Стильные картинки */
-        img { width: 280px; height: 280px; border-radius: 20px; margin-bottom: 20px; border: 4px solid #fff; object-fit: cover; box-shadow: 0 0 20px rgba(255, 183, 197, 0.5); }
-        table { margin: 20px auto; border-collapse: collapse; width: 80%; background: rgba(255,255,255,0.05); border-radius: 10px; }
-        td { padding: 10px; border: 1px solid #ffb7c5; }
+        .container {
+            width: 100%;
+            max-width: 550px;
+        }
+        
+        .page { 
+            display: none; 
+            padding: 20px; 
+            background: rgba(0,0,0,0.3);
+            border-radius: 40px;
+            backdrop-filter: blur(2px);
+        }
+        
+        .active { display: block; }
+        
+        .btn { 
+            padding: 14px 32px; 
+            border-radius: 50px; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: bold; 
+            margin: 12px; 
+            transition: all 0.3s ease; 
+            font-size: 18px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            font-family: inherit;
+        }
+        
+        .btn-yes { 
+            background: #ffb7c5; 
+            color: #2d1b2e; 
+        }
+        
+        .btn-yes:hover {
+            transform: scale(1.05);
+            background: #ff9db0;
+            box-shadow: 0 6px 20px rgba(255, 183, 197, 0.4);
+        }
+        
+        .btn-no { 
+            border: 2px solid #ffb7c5; 
+            background: transparent; 
+            color: #ffb7c5;
+            transition: all 0.2s;
+        }
+        
+        .btn-choice {
+            background: rgba(255, 183, 197, 0.2);
+            border: 2px solid #ffb7c5;
+            color: #ffb7c5;
+        }
+        
+        .btn-choice:hover {
+            background: #ffb7c5;
+            color: #2d1b2e;
+            transform: scale(1.02);
+        }
+        
+        img { 
+            width: 100%;
+            max-width: 280px;
+            height: 280px; 
+            border-radius: 30px; 
+            margin-bottom: 20px; 
+            border: 3px solid rgba(255,255,255,0.6); 
+            object-fit: cover; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        table { 
+            margin: 25px auto; 
+            border-collapse: collapse; 
+            width: 90%; 
+            background: rgba(255,255,255,0.1); 
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        
+        td { 
+            padding: 12px; 
+            border: 1px solid #ffb7c5; 
+            text-align: left;
+        }
+        
+        td:first-child {
+            font-weight: bold;
+            width: 35%;
+            background: rgba(255,183,197,0.2);
+        }
+        
+        textarea {
+            width: 90%;
+            max-width: 280px;
+            padding: 12px;
+            border-radius: 20px;
+            border: none;
+            font-family: inherit;
+            font-size: 14px;
+            margin: 15px 0;
+            background: rgba(255,255,255,0.9);
+        }
+        
+        h1, h2 {
+            margin-bottom: 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        img {
+            animation: float 3s ease-in-out infinite;
+        }
     </style>
 </head>
 <body>
+    <div class="container">
+        <!-- Страница 1 - Приглашение -->
+        <div id="page1" class="page active">
+            <img src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_640.jpg" alt="Романтичная аниме сцена">
+            <h1>🌸 Хочешь пойти гулять? 🌸</h1>
+            <button class="btn btn-yes" onclick="nextPage(2)">💖 Да, конечно! 💖</button>
+            <button class="btn btn-no" id="noBtn" onmouseover="moveNoButton()" onclick="alert('😊 Кнопка «Нет» убегает — значит, ответ только «Да»! 😊')">😅 Нет</button>
+        </div>
 
-    <div id="page1" class="page active">
-        <img src="https://i.pinimg.com/736x/8d/f3/f1/8df3f1396a84c8a24c56e3005891398c.jpg" alt="Anime Art">
-        <h1>Хочешь пойти погулять?</h1>
-        <button class="btn" id="yes-btn" onclick="nextPage(2)">Да!</button>
-        <button class="btn" id="no-btn" onmouseover="moveBtn()">Нет</button>
-    </div>
+        <!-- Страница 2 - Выбор даты -->
+        <div id="page2" class="page">
+            <img src="https://cdn.pixabay.com/photo/2019/08/29/10/04/anime-4438185_640.jpg" alt="Аниме пара на прогулке">
+            <h2>📅 Когда отправимся на поиски сирени? 📅</h2>
+            <button class="btn btn-choice" onclick="selectDate('6 июня')">🗓️ 6 июня</button>
+            <button class="btn btn-choice" onclick="selectDate('7 июня')">🗓️ 7 июня</button>
+            <button class="btn btn-choice" onclick="selectDate('8 июня')">🗓️ 8 июня</button>
+        </div>
 
-    <div id="page2" class="page">
-        <img src="https://i.pinimg.com/736x/29/73/45/297345f8f87e59b56f8f533177699923.jpg" alt="Anime Art">
-        <h2>Когда отправимся на поиски сирени?</h2>
-        <button class="btn" id="yes-btn" onclick="document.getElementById('res-date').innerText='6 июня'; nextPage(3)">6 июня</button>
-        <button class="btn" id="yes-btn" onclick="document.getElementById('res-date').innerText='7 июня'; nextPage(3)">7 июня</button>
-    </div>
+        <!-- Страница 3 - Пожелания -->
+        <div id="page3" class="page">
+            <img src="https://cdn.pixabay.com/photo/2015/09/09/19/30/anime-932587_640.jpg" alt="Аниме письмо">
+            <h2>💌 И последнее... напиши пожелания 💌</h2>
+            <textarea id="userWish" rows="4" placeholder="Напиши что-нибудь приятное... ❤️"></textarea>
+            <br>
+            <button class="btn btn-yes" onclick="showFinalResult()">✨ Показать итог ✨</button>
+        </div>
 
-    <div id="page3" class="page">
-        <img src="https://i.pinimg.com/736x/55/59/8d/55598d9e27c732049d5a7698544d9f6b.jpg" alt="Anime Art">
-        <h2>И последнее...</h2>
-        <textarea id="user-text" placeholder="Напиши пожелания..." style="width:250px; height:80px; padding:10px; border-radius:15px;"></textarea>
-        <br><button class="btn" id="yes-btn" onclick="showResults()">Показать итог</button>
-    </div>
-
-    <div id="page4" class="page">
-        <img src="https://i.pinimg.com/736x/c1/c1/81/c1c1815126839a9c4c45b73894709848.jpg" alt="Anime Art">
-        <h2>Всё готово!</h2>
-        <table>
-            <tr><td>Дата:</td><td id="res-date"></td></tr>
-            <tr><td>Планы:</td><td id="res-text"></td></tr>
-        </table>
+        <!-- Страница 4 - Итог -->
+        <div id="page4" class="page">
+            <img src="https://cdn.pixabay.com/photo/2016/11/14/03/42/woman-1822542_640.jpg" alt="Счастливая аниме девушка">
+            <h2>🎉 Всё готово! Жду с нетерпением! 🎉</h2>
+            <table>
+                <tr>
+                    <td>📅 Дата:</td>
+                    <td id="finalDate">—</td>
+                </tr>
+                <tr>
+                    <td>💭 Пожелание:</td>
+                    <td id="finalWish">—</td>
+                </tr>
+            </table>
+            <button class="btn btn-yes" onclick="restart()">🔄 Начать заново</button>
+        </div>
     </div>
 
     <script>
-        function nextPage(n) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById('page' + n).classList.add('active'); }
-        function showResults() { document.getElementById('res-text').innerText = document.getElementById('user-text').value; nextPage(4); }
-        function moveBtn() { const btn = document.getElementById('no-btn'); btn.style.position = 'absolute'; btn.style.top = Math.random() * 70 + 'vh'; btn.style.left = Math.random() * 70 + 'vw'; }
+        let selectedDate = '';
+        
+        function nextPage(pageNum) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById('page' + pageNum).classList.add('active');
+        }
+        
+        function selectDate(date) {
+            selectedDate = date;
+            document.getElementById('finalDate').innerText = date;
+            nextPage(3);
+        }
+        
+        function showFinalResult() {
+            let wish = document.getElementById('userWish').value.trim();
+            if (wish === '') {
+                wish = '💖 Сюрприз от тебя! 💖';
+            }
+            document.getElementById('finalWish').innerText = wish;
+            nextPage(4);
+        }
+        
+        function moveNoButton() {
+            const btn = document.getElementById('noBtn');
+            const maxX = window.innerWidth - btn.offsetWidth - 40;
+            const maxY = window.innerHeight - btn.offsetHeight - 40;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            btn.style.position = 'fixed';
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+            btn.style.zIndex = '1000';
+        }
+        
+        function restart() {
+            selectedDate = '';
+            document.getElementById('finalDate').innerText = '—';
+            document.getElementById('finalWish').innerText = '—';
+            document.getElementById('userWish').value = '';
+            nextPage(1);
+            
+            // Сброс позиции кнопки "Нет"
+            const noBtn = document.getElementById('noBtn');
+            noBtn.style.position = 'relative';
+            noBtn.style.left = 'auto';
+            noBtn.style.top = 'auto';
+        }
+        
+        // При изменении размера окна сбрасываем фиксированную позицию кнопки "Нет"
+        window.addEventListener('resize', function() {
+            const noBtn = document.getElementById('noBtn');
+            if (noBtn.style.position === 'fixed') {
+                noBtn.style.position = 'relative';
+                noBtn.style.left = 'auto';
+                noBtn.style.top = 'auto';
+            }
+        });
     </script>
 </body>
 </html>
