@@ -32,7 +32,7 @@
         .btn-no { border: 2px solid #ffb7c5; background: transparent; color: #ffb7c5; }
         .btn-choice { background: rgba(255, 183, 197, 0.2); border: 2px solid #ffb7c5; color: #ffb7c5; }
         .btn-choice:hover { background: #ffb7c5; color: #2d1b2e; }
-        .gif-img { 
+        .page-img { 
             width: 100%; max-width: 270px; height: 270px; border-radius: 35px; 
             margin-bottom: 20px; border: 3px solid rgba(255,255,255,0.5); 
             object-fit: cover; box-shadow: 0 12px 28px rgba(0,0,0,0.4);
@@ -44,7 +44,7 @@
         h1 { font-size: 28px; margin-bottom: 25px; }
         h2 { font-size: 24px; margin-bottom: 22px; }
         @media (max-width: 500px) {
-            .gif-img { height: 220px; max-width: 220px; }
+            .page-img { height: 220px; max-width: 220px; }
             h1 { font-size: 24px; }
             h2 { font-size: 20px; }
             .btn { padding: 10px 20px; font-size: 14px; }
@@ -53,37 +53,47 @@
 </head>
 <body>
     <div class="container">
+        <!-- СТРАНИЦА 1 -->
         <div id="page1" class="page active">
-            <img class="gif-img" src="images/invite.jiff" alt="Приглашение">
+            <img class="page-img" src="images/invite.jfif" alt="Приглашение" onerror="this.src='https://placehold.co/300x300/ffb7c5/2d1b2e?text=🌸'">
             <h1>🌸 Хочешь пойти гулять? 🌸</h1>
             <button class="btn btn-yes" onclick="nextPage(2)">💖 Да! 💖</button>
-            <button class="btn btn-no" id="noBtn" onclick="alert('Ответ только «Да»!')" onmouseover="moveNoButton()">😅 Нет</button>
+            <button class="btn btn-no" id="noBtn" onclick="alert('😊 Ответ только «Да»! 😊')" onmouseover="moveNoButton()">😅 Нет</button>
         </div>
 
+        <!-- СТРАНИЦА 2 -->
         <div id="page2" class="page">
-            <img class="gif-img" src="images/date.jiff" alt="Выбор даты">
+            <img class="page-img" src="images/date.jfif" alt="Выбор даты" onerror="this.src='https://placehold.co/300x300/ffb7c5/2d1b2e?text=📅'">
             <h2>📅 Когда идём искать сирень? 📅</h2>
-            <button class="btn btn-choice" onclick="selectDate('6 июня')">6 июня</button>
-            <button class="btn btn-choice" onclick="selectDate('7 июня')">7 июня</button>
-            <button class="btn btn-choice" onclick="selectDate('8 июня')">8 июня</button>
+            <button class="btn btn-choice" onclick="selectDate('6 июня')">🗓️ 6 июня</button>
+            <button class="btn btn-choice" onclick="selectDate('7 июня')">🗓️ 7 июня</button>
+            <button class="btn btn-choice" onclick="selectDate('8 июня')">🗓️ 8 июня</button>
         </div>
 
+        <!-- СТРАНИЦА 3 -->
         <div id="page3" class="page">
-            <img class="gif-img" src="images/wish.jiff" alt="Пожелания">
+            <img class="page-img" src="images/wish.jfif" alt="Пожелания" onerror="this.src='https://placehold.co/300x300/ffb7c5/2d1b2e?text=💌'">
             <h2>💌 Напиши пожелания 💌</h2>
-            <textarea id="userWish" rows="4" placeholder="Напиши куда или чего хочешь ❤️"></textarea>
+            <textarea id="userWish" rows="4" placeholder="Напиши что-нибудь приятное... ❤️"></textarea>
             <br>
             <button class="btn btn-yes" onclick="showFinalResult()">✨ Показать итог ✨</button>
         </div>
 
+        <!-- СТРАНИЦА 4 -->
         <div id="page4" class="page">
-            <img class="gif-img" src="images/final.jiff" alt="Итог">
-            <h2>🎉 Всё готово! 🎉</h2>
+            <img class="page-img" src="images/final.jfif" alt="Итог" onerror="this.src='https://placehold.co/300x300/ffb7c5/2d1b2e?text=🎉'">
+            <h2>🎉 Всё готово! Жду с нетерпением! 🎉</h2>
             <table>
-                <tr><td>📅 Дата:</td><td id="finalDate">—</td></tr>
-                <tr><td>💭 Пожелание:</td><td id="finalWish">—</td></tr>
+                <tr>
+                    <td>📅 Дата:</td>
+                    <td id="finalDate">—</td>
+                </tr>
+                <tr>
+                    <td>💭 Пожелание:</td>
+                    <td id="finalWish">—</td>
+                </tr>
             </table>
-            <button class="btn btn-yes" onclick="restart()">🔄 Заново</button>
+            <button class="btn btn-yes" onclick="restart()">🔄 Начать заново</button>
         </div>
     </div>
 
@@ -93,16 +103,19 @@
             document.getElementById('page' + pageNum).classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+        
         function selectDate(date) {
             document.getElementById('finalDate').innerText = date;
             nextPage(3);
         }
+        
         function showFinalResult() {
             let wish = document.getElementById('userWish').value.trim();
             if (wish === '') wish = '💖 Сюрприз от тебя! 💖';
             document.getElementById('finalWish').innerText = wish;
             nextPage(4);
         }
+        
         function moveNoButton() {
             const btn = document.getElementById('noBtn');
             const maxX = window.innerWidth - btn.offsetWidth - 30;
@@ -111,6 +124,7 @@
             btn.style.left = Math.random() * Math.max(0, maxX) + 'px';
             btn.style.top = Math.random() * Math.max(0, maxY) + 'px';
         }
+        
         function restart() {
             document.getElementById('finalDate').innerText = '—';
             document.getElementById('finalWish').innerText = '—';
@@ -121,7 +135,8 @@
             noBtn.style.left = 'auto';
             noBtn.style.top = 'auto';
         }
-        window.addEventListener('resize', () => {
+        
+        window.addEventListener('resize', function() {
             const noBtn = document.getElementById('noBtn');
             if (noBtn.style.position === 'fixed') {
                 noBtn.style.position = 'relative';
