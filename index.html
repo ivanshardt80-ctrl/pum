@@ -136,13 +136,27 @@
         img {
             animation: float 3s ease-in-out infinite;
         }
+        
+        /* Адаптация для мобильных */
+        @media (max-width: 480px) {
+            .btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            h1, h2 {
+                font-size: 20px;
+            }
+            img {
+                height: 220px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Страница 1 - Приглашение -->
         <div id="page1" class="page active">
-            <img src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_640.jpg" alt="Романтичная аниме сцена">
+            <img src="images/invite.jpg" alt="Романтичное приглашение" onerror="this.src='https://placehold.co/280x280/ffb7c5/2d1b2e?text=❤️'">
             <h1>🌸 Хочешь пойти гулять? 🌸</h1>
             <button class="btn btn-yes" onclick="nextPage(2)">💖 Да, конечно! 💖</button>
             <button class="btn btn-no" id="noBtn" onmouseover="moveNoButton()" onclick="alert('😊 Кнопка «Нет» убегает — значит, ответ только «Да»! 😊')">😅 Нет</button>
@@ -150,7 +164,7 @@
 
         <!-- Страница 2 - Выбор даты -->
         <div id="page2" class="page">
-            <img src="https://cdn.pixabay.com/photo/2019/08/29/10/04/anime-4438185_640.jpg" alt="Аниме пара на прогулке">
+            <img src="images/date.jpg" alt="Выбор даты" onerror="this.src='https://placehold.co/280x280/ffb7c5/2d1b2e?text=📅'">
             <h2>📅 Когда отправимся на поиски сирени? 📅</h2>
             <button class="btn btn-choice" onclick="selectDate('6 июня')">🗓️ 6 июня</button>
             <button class="btn btn-choice" onclick="selectDate('7 июня')">🗓️ 7 июня</button>
@@ -159,16 +173,16 @@
 
         <!-- Страница 3 - Пожелания -->
         <div id="page3" class="page">
-            <img src="https://cdn.pixabay.com/photo/2015/09/09/19/30/anime-932587_640.jpg" alt="Аниме письмо">
+            <img src="images/wish.jpg" alt="Пожелания" onerror="this.src='https://placehold.co/280x280/ffb7c5/2d1b2e?text=💌'">
             <h2>💌 И последнее... напиши пожелания 💌</h2>
-            <textarea id="userWish" rows="4" placeholder="Напиши что-нибудь приятное... ❤️"></textarea>
+            <textarea id="userWish" rows="4" placeholder="Напиши что хочешь ❤️"></textarea>
             <br>
             <button class="btn btn-yes" onclick="showFinalResult()">✨ Показать итог ✨</button>
         </div>
 
         <!-- Страница 4 - Итог -->
         <div id="page4" class="page">
-            <img src="https://cdn.pixabay.com/photo/2016/11/14/03/42/woman-1822542_640.jpg" alt="Счастливая аниме девушка">
+            <img src="images/final.jpg" alt="Финальный результат" onerror="this.src='https://placehold.co/280x280/ffb7c5/2d1b2e?text=🎉'">
             <h2>🎉 Всё готово! Жду с нетерпением! 🎉</h2>
             <table>
                 <tr>
@@ -245,6 +259,20 @@
                 noBtn.style.left = 'auto';
                 noBtn.style.top = 'auto';
             }
+        });
+        
+        // Защита от того, чтобы кнопка "Нет" не вылетала за экран на мобильных
+        let touchTimer;
+        document.getElementById('noBtn').addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            moveNoButton();
+            touchTimer = setTimeout(() => {
+                alert('😊 Кнопка «Нет» убегает — значит, ответ только «Да»! 😊');
+            }, 500);
+        });
+        
+        document.getElementById('noBtn').addEventListener('touchend', function() {
+            clearTimeout(touchTimer);
         });
     </script>
 </body>
