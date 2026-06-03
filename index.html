@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Приглашение на прогулку</title>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             background: linear-gradient(135deg, #2d1b2e 0%, #0f0c29 100%); 
             color: #fff; 
-            font-family: 'Segoe UI', 'Roboto', sans-serif; 
+            font-family: 'Segoe UI', sans-serif; 
             text-align: center; 
             display: flex; 
             justify-content: center; 
@@ -16,263 +17,115 @@
             min-height: 100vh; 
             margin: 0; 
             padding: 20px;
-            background-image: radial-gradient(circle at 20% 30%, rgba(255, 183, 197, 0.15) 0%, transparent 50%);
         }
-        
-        .container {
-            width: 100%;
-            max-width: 550px;
-        }
-        
-        .page { 
-            display: none; 
-            padding: 20px; 
-            background: rgba(0,0,0,0.3);
-            border-radius: 40px;
-            backdrop-filter: blur(2px);
-        }
-        
-        .active { display: block; }
-        
+        .container { width: 100%; max-width: 550px; }
+        .page { display: none; padding: 25px 20px; background: rgba(0,0,0,0.25); border-radius: 45px; }
+        .active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .btn { 
-            padding: 14px 32px; 
-            border-radius: 50px; 
-            border: none; 
-            cursor: pointer; 
-            font-weight: bold; 
-            margin: 12px; 
-            transition: all 0.3s ease; 
-            font-size: 18px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            font-family: inherit;
+            padding: 14px 28px; border-radius: 50px; border: none; cursor: pointer; 
+            font-weight: bold; margin: 10px 8px; font-size: 17px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: inherit;
         }
-        
-        .btn-yes { 
-            background: #ffb7c5; 
-            color: #2d1b2e; 
+        .btn-yes { background: #ffb7c5; color: #2d1b2e; }
+        .btn-yes:hover { transform: scale(1.05); background: #ff9db0; }
+        .btn-no { border: 2px solid #ffb7c5; background: transparent; color: #ffb7c5; }
+        .btn-choice { background: rgba(255, 183, 197, 0.2); border: 2px solid #ffb7c5; color: #ffb7c5; }
+        .btn-choice:hover { background: #ffb7c5; color: #2d1b2e; }
+        .gif-img { 
+            width: 100%; max-width: 270px; height: 270px; border-radius: 35px; 
+            margin-bottom: 20px; border: 3px solid rgba(255,255,255,0.5); 
+            object-fit: cover; box-shadow: 0 12px 28px rgba(0,0,0,0.4);
         }
-        
-        .btn-yes:hover {
-            transform: scale(1.05);
-            background: #ff9db0;
-            box-shadow: 0 6px 20px rgba(255, 183, 197, 0.4);
-        }
-        
-        .btn-no { 
-            border: 2px solid #ffb7c5; 
-            background: transparent; 
-            color: #ffb7c5;
-            transition: all 0.2s;
-        }
-        
-        .btn-choice {
-            background: rgba(255, 183, 197, 0.2);
-            border: 2px solid #ffb7c5;
-            color: #ffb7c5;
-        }
-        
-        .btn-choice:hover {
-            background: #ffb7c5;
-            color: #2d1b2e;
-            transform: scale(1.02);
-        }
-        
-        img { 
-            width: 100%;
-            max-width: 280px;
-            height: 280px; 
-            border-radius: 30px; 
-            margin-bottom: 20px; 
-            border: 3px solid rgba(255,255,255,0.6); 
-            object-fit: cover; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        
-        table { 
-            margin: 25px auto; 
-            border-collapse: collapse; 
-            width: 90%; 
-            background: rgba(255,255,255,0.1); 
-            border-radius: 20px;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-        }
-        
-        td { 
-            padding: 12px; 
-            border: 1px solid #ffb7c5; 
-            text-align: left;
-        }
-        
-        td:first-child {
-            font-weight: bold;
-            width: 35%;
-            background: rgba(255,183,197,0.2);
-        }
-        
-        textarea {
-            width: 90%;
-            max-width: 280px;
-            padding: 12px;
-            border-radius: 20px;
-            border: none;
-            font-family: inherit;
-            font-size: 14px;
-            margin: 15px 0;
-            background: rgba(255,255,255,0.9);
-        }
-        
-        h1, h2 {
-            margin-bottom: 25px;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        img {
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        /* Адаптация для мобильных */
-        @media (max-width: 480px) {
-            .btn {
-                padding: 10px 20px;
-                font-size: 14px;
-            }
-            h1, h2 {
-                font-size: 20px;
-            }
-            img {
-                height: 220px;
-            }
+        table { margin: 25px auto; border-collapse: collapse; width: 95%; background: rgba(255,255,255,0.08); border-radius: 24px; }
+        td { padding: 14px 12px; border: 1px solid rgba(255,183,197,0.5); text-align: left; }
+        td:first-child { font-weight: bold; width: 35%; background: rgba(255,183,197,0.15); }
+        textarea { width: 90%; padding: 14px; border-radius: 25px; border: none; font-family: inherit; margin: 15px 0; background: rgba(255,255,255,0.95); }
+        h1 { font-size: 28px; margin-bottom: 25px; }
+        h2 { font-size: 24px; margin-bottom: 22px; }
+        @media (max-width: 500px) {
+            .gif-img { height: 220px; max-width: 220px; }
+            h1 { font-size: 24px; }
+            h2 { font-size: 20px; }
+            .btn { padding: 10px 20px; font-size: 14px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Страница 1 - Приглашение -->
         <div id="page1" class="page active">
-            <img src="images/invite.jpg" alt="Романтичное приглашение" onerror="this.src='https://placehold.co/280x280/ffb7c5/2d1b2e?text=❤️'">
+            <img class="gif-img" src="images/invite.jiff" alt="Приглашение">
             <h1>🌸 Хочешь пойти гулять? 🌸</h1>
-            <button class="btn btn-yes" onclick="nextPage(2)">💖 Да, конечно! 💖</button>
-            <button class="btn btn-no" id="noBtn" onmouseover="moveNoButton()" onclick="alert('😊 Кнопка «Нет» убегает — значит, ответ только «Да»! 😊')">😅 Нет</button>
+            <button class="btn btn-yes" onclick="nextPage(2)">💖 Да! 💖</button>
+            <button class="btn btn-no" id="noBtn" onclick="alert('Ответ только «Да»!')" onmouseover="moveNoButton()">😅 Нет</button>
         </div>
 
-        <!-- Страница 2 - Выбор даты -->
         <div id="page2" class="page">
-            <img src="images/date.jpg" alt="Выбор даты" onerror="this.src='https://placehold.co/280x280/ffb7c5/2d1b2e?text=📅'">
-            <h2>📅 Когда отправимся на поиски сирени? 📅</h2>
-            <button class="btn btn-choice" onclick="selectDate('6 июня')">🗓️ 6 июня</button>
-            <button class="btn btn-choice" onclick="selectDate('7 июня')">🗓️ 7 июня</button>
-            <button class="btn btn-choice" onclick="selectDate('8 июня')">🗓️ 8 июня</button>
+            <img class="gif-img" src="images/date.jiff" alt="Выбор даты">
+            <h2>📅 Когда идём искать сирень? 📅</h2>
+            <button class="btn btn-choice" onclick="selectDate('6 июня')">6 июня</button>
+            <button class="btn btn-choice" onclick="selectDate('7 июня')">7 июня</button>
+            <button class="btn btn-choice" onclick="selectDate('8 июня')">8 июня</button>
         </div>
 
-        <!-- Страница 3 - Пожелания -->
         <div id="page3" class="page">
-            <img src="images/wish.jpg" alt="Пожелания" onerror="this.src='https://placehold.co/280x280/ffb7c5/2d1b2e?text=💌'">
-            <h2>💌 И последнее... напиши пожелания 💌</h2>
-            <textarea id="userWish" rows="4" placeholder="Напиши что хочешь ❤️"></textarea>
+            <img class="gif-img" src="images/wish.jiff" alt="Пожелания">
+            <h2>💌 Напиши пожелания 💌</h2>
+            <textarea id="userWish" rows="4" placeholder="Напиши куда или чего хочешь ❤️"></textarea>
             <br>
             <button class="btn btn-yes" onclick="showFinalResult()">✨ Показать итог ✨</button>
         </div>
 
-        <!-- Страница 4 - Итог -->
         <div id="page4" class="page">
-            <img src="images/final.jpg" alt="Финальный результат" onerror="this.src='https://placehold.co/280x280/ffb7c5/2d1b2e?text=🎉'">
-            <h2>🎉 Всё готово! Жду с нетерпением! 🎉</h2>
+            <img class="gif-img" src="images/final.jiff" alt="Итог">
+            <h2>🎉 Всё готово! 🎉</h2>
             <table>
-                <tr>
-                    <td>📅 Дата:</td>
-                    <td id="finalDate">—</td>
-                </tr>
-                <tr>
-                    <td>💭 Пожелание:</td>
-                    <td id="finalWish">—</td>
-                </tr>
+                <tr><td>📅 Дата:</td><td id="finalDate">—</td></tr>
+                <tr><td>💭 Пожелание:</td><td id="finalWish">—</td></tr>
             </table>
-            <button class="btn btn-yes" onclick="restart()">🔄 Начать заново</button>
+            <button class="btn btn-yes" onclick="restart()">🔄 Заново</button>
         </div>
     </div>
 
     <script>
-        let selectedDate = '';
-        
         function nextPage(pageNum) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById('page' + pageNum).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        
         function selectDate(date) {
-            selectedDate = date;
             document.getElementById('finalDate').innerText = date;
             nextPage(3);
         }
-        
         function showFinalResult() {
             let wish = document.getElementById('userWish').value.trim();
-            if (wish === '') {
-                wish = '💖 Сюрприз от тебя! 💖';
-            }
+            if (wish === '') wish = '💖 Сюрприз от тебя! 💖';
             document.getElementById('finalWish').innerText = wish;
             nextPage(4);
         }
-        
         function moveNoButton() {
             const btn = document.getElementById('noBtn');
-            const maxX = window.innerWidth - btn.offsetWidth - 40;
-            const maxY = window.innerHeight - btn.offsetHeight - 40;
-            
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
-            
+            const maxX = window.innerWidth - btn.offsetWidth - 30;
+            const maxY = window.innerHeight - btn.offsetHeight - 30;
             btn.style.position = 'fixed';
-            btn.style.left = randomX + 'px';
-            btn.style.top = randomY + 'px';
-            btn.style.zIndex = '1000';
+            btn.style.left = Math.random() * Math.max(0, maxX) + 'px';
+            btn.style.top = Math.random() * Math.max(0, maxY) + 'px';
         }
-        
         function restart() {
-            selectedDate = '';
             document.getElementById('finalDate').innerText = '—';
             document.getElementById('finalWish').innerText = '—';
             document.getElementById('userWish').value = '';
             nextPage(1);
-            
-            // Сброс позиции кнопки "Нет"
             const noBtn = document.getElementById('noBtn');
             noBtn.style.position = 'relative';
             noBtn.style.left = 'auto';
             noBtn.style.top = 'auto';
         }
-        
-        // При изменении размера окна сбрасываем фиксированную позицию кнопки "Нет"
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', () => {
             const noBtn = document.getElementById('noBtn');
             if (noBtn.style.position === 'fixed') {
                 noBtn.style.position = 'relative';
-                noBtn.style.left = 'auto';
-                noBtn.style.top = 'auto';
             }
-        });
-        
-        // Защита от того, чтобы кнопка "Нет" не вылетала за экран на мобильных
-        let touchTimer;
-        document.getElementById('noBtn').addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            moveNoButton();
-            touchTimer = setTimeout(() => {
-                alert('😊 Кнопка «Нет» убегает — значит, ответ только «Да»! 😊');
-            }, 500);
-        });
-        
-        document.getElementById('noBtn').addEventListener('touchend', function() {
-            clearTimeout(touchTimer);
         });
     </script>
 </body>
