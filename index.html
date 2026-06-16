@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💕 Приглашение погулять 💕</title>
+    <title>🌸 Приглашение на прогулочку 🌸</title>
     <style>
         * {
             margin: 0;
@@ -230,7 +230,7 @@
         <!-- СТРАНИЦА 1: ПРИГЛАШЕНИЕ -->
         <div id="page1" class="page active">
             <img class="page-img" src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=400&h=400&fit=crop" alt="Приглашение">
-            <h1>💖 Хочешь пойти со мной на свидание? 💖<br><small style="font-size: 0.6em;">(´｡• ω •｡`)</small></h1>
+            <h1>🌸 Пойдём со мной на прогулочку? 🌸<br><small style="font-size: 0.6em;">(´｡• ω •｡`)</small></h1>
             <button class="btn btn-yes" onclick="nextPage(2)">✨ Да, конечно! ✨</button>
             <button class="btn btn-no" id="noBtn" onmouseover="moveNoButton()">😅 Нет</button>
         </div>
@@ -239,28 +239,28 @@
         <div id="page2" class="page">
             <img class="page-img" src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=400&fit=crop" alt="Дата">
             <h2>📅 Когда пойдём? 📅<br><small style="font-size: 0.6em;">(≧◡)</small></h2>
-            <button class="btn btn-choice" onclick="selectDate('В эти выходные')">🌸 В эти выходные</button>
-            <button class="btn btn-choice" onclick="selectDate('На следующей неделе')">🌺 На следующей неделе</button>
-            <button class="btn btn-choice" onclick="selectDate('Когда тебе удобно')">💕 Когда тебе удобно</button>
-            <input type="date" id="customDate" class="btn btn-choice" style="text-align: center; cursor: pointer;" onchange="selectDate(this.value)">
+            <button class="btn btn-choice" onclick="selectDate('30 июня')">🗓️ 30 июня</button>
+            <button class="btn btn-choice" onclick="selectDate('1 июля')">🗓️ 1 июля</button>
+            <button class="btn btn-choice" onclick="selectDate('2 июля')">🗓️ 2 июля</button>
+            <button class="btn btn-choice" onclick="selectDate('3 июля')">🗓️ 3 июля</button>
         </div>
 
         <!-- СТРАНИЦА 3: ПОЖЕЛАНИЯ -->
         <div id="page3" class="page">
             <img class="page-img" src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=400&fit=crop" alt="Пожелания">
-            <h2>💌 Есть пожелания? 💌<br><small style="font-size: 0.6em;">(◕◕✿)</small></h2>
-            <textarea id="userWish" rows="4" placeholder="Напиши что хочешь... Может, особое место или активность? ❤️"></textarea>
+            <h2>🌺 Есть пожелания? 🌺<br><small style="font-size: 0.6em;">(◕◕)</small></h2>
+            <textarea id="userWish" rows="4" placeholder="Напиши что хочешь... Может, особое место или активность? 💐"></textarea>
             <br>
-            <button class="btn btn-yes" onclick="showFinalResult()">🎉 Продолжить 🎉</button>
+            <button class="btn btn-yes" onclick="showFinalResult()">🌸 Продолжить 🌸</button>
         </div>
 
         <!-- СТРАНИЦА 4: ФИНАЛ -->
         <div id="page4" class="page">
-            <img class="page-img" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=400&fit=crop" alt="Свидание">
-            <h1>🌟 Ура! Мы идём на свидание! 🌟<br><small style="font-size: 0.6em;">(ﾉ^ヮ^) ﾉ*:・ﾟ✧</small></h1>
+            <img class="page-img" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=400&fit=crop" alt="Прогулка">
+            <h1>🌟 Ура! Идём на прогулочку! 🌟<br><small style="font-size: 0.6em;">(ﾉ^ヮ^) ﾉ*:・ﾟ✧</small></h1>
             
             <div class="final-details">
-                <h2>📍 Программа нашего свидания:</h2>
+                <h2>📍 Программа нашей прогулки:</h2>
                 
                 <div class="place-card">
                     <h3>🦁 1. Экопарк "Биосфера"</h3>
@@ -284,10 +284,10 @@
                 </div>
             </div>
 
-            <button class="btn btn-yes" onclick="createHeartRain()">💕 Я согласна! 💕</button>
+            <button class="btn btn-yes" onclick="createHeartRain()">🌸 Я согласна! 🌸</button>
             <p style="margin-top: 20px; color: #d63384; font-size: 0.9em;">
-                Жду нашей встречи! <br>
-                <small>С любовью ❤️</small>
+                Жду нашей прогулки! <br>
+                <small>С любовью 💐</small>
             </p>
         </div>
     </div>
@@ -316,7 +316,7 @@
             const randomY = Math.random() * maxY - (maxY / 2);
             
             btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
-            btn.textContent = ['😅', '🙈', '😳', '💦', '🥺', ''][Math.floor(Math.random() * 6)] + ' Нет';
+            btn.textContent = ['😅', '🙈', '', '💦', '', ''][Math.floor(Math.random() * 6)] + ' Нет';
         }
 
         function selectDate(date) {
@@ -334,25 +334,27 @@
         }
 
         function createFloatingHearts() {
-            const hearts = ['💖', '', '💗', '', '💝'];
-            for (let i = 0; i < 10; i++) {
+            // Меньше сердечек, больше цветочков
+            const emojis = ['🌸', '💐', '🌺', '🌷', '🌼'];
+            for (let i = 0; i < 6; i++) {
                 setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.className = 'hearts';
-                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                    heart.style.left = Math.random() * 100 + 'vw';
-                    heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    document.body.appendChild(heart);
-                    setTimeout(() => heart.remove(), 4000);
-                }, i * 200);
+                    const emoji = document.createElement('div');
+                    emoji.className = 'hearts';
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(emoji);
+                    setTimeout(() => emoji.remove(), 4000);
+                }, i * 300);
             }
         }
 
         function createHeartRain() {
-            const emojis = ['💖', '', '💗', '', '💝', '', '🌺', '🦋', '✨', '💫'];
+            // Меньше эмодзи и больше цветочков
+            const emojis = ['🌸', '💐', '🌺', '🌷', '🌼', '✨', '🦋'];
             const rainContainer = document.getElementById('emojiRain');
             
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 15; i++) {
                 setTimeout(() => {
                     const emoji = document.createElement('div');
                     emoji.className = 'hearts';
@@ -362,14 +364,14 @@
                     emoji.style.animationDuration = (Math.random() * 3 + 3) + 's';
                     rainContainer.appendChild(emoji);
                     setTimeout(() => emoji.remove(), 6000);
-                }, i * 100);
+                }, i * 150);
             }
         }
 
         // Предотвращаем уход со страницы
         window.onbeforeunload = function() {
             if (document.getElementById('page4').classList.contains('active')) {
-                return "Ты точно хочешь уйти? Свидание же! 💕";
+                return "Ты точно хочешь уйти? Прогулочка же! 🌸";
             }
         };
     </script>
