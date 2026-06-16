@@ -3,145 +3,375 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Приглашение на прогулку</title>
+    <title>💕 Приглашение погулять 💕</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: linear-gradient(135deg, #2d1b2e 0%, #0f0c29 100%); 
-            color: #fff; 
-            font-family: 'Segoe UI', sans-serif; 
-            text-align: center; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            margin: 0; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 50%, #ffd6e7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 20px;
+            overflow-x: hidden;
         }
-        .container { width: 100%; max-width: 550px; }
-        .page { display: none; padding: 25px 20px; background: rgba(0,0,0,0.25); border-radius: 45px; }
-        .active { display: block; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .btn { 
-            padding: 14px 28px; border-radius: 50px; border: none; cursor: pointer; 
-            font-weight: bold; margin: 10px 8px; font-size: 17px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: inherit;
+
+        .container {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        .btn-yes { background: #ffb7c5; color: #2d1b2e; }
-        .btn-yes:hover { transform: scale(1.05); background: #ff9db0; }
-        .btn-no { border: 2px solid #ffb7c5; background: transparent; color: #ffb7c5; }
-        .btn-choice { background: rgba(255, 183, 197, 0.2); border: 2px solid #ffb7c5; color: #ffb7c5; }
-        .btn-choice:hover { background: #ffb7c5; color: #2d1b2e; }
-        .page-img { 
-            width: 100%; max-width: 270px; height: 270px; border-radius: 35px; 
-            margin-bottom: 20px; border: 3px solid rgba(255,255,255,0.5); 
-            object-fit: cover; box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,182,193,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+            z-index: 0;
         }
-        table { margin: 25px auto; border-collapse: collapse; width: 95%; background: rgba(255,255,255,0.08); border-radius: 24px; }
-        td { padding: 14px 12px; border: 1px solid rgba(255,183,197,0.5); text-align: left; }
-        td:first-child { font-weight: bold; width: 35%; background: rgba(255,183,197,0.15); }
-        textarea { width: 90%; padding: 14px; border-radius: 25px; border: none; font-family: inherit; margin: 15px 0; background: rgba(255,255,255,0.95); }
-        h1 { font-size: 28px; margin-bottom: 25px; }
-        h2 { font-size: 24px; margin-bottom: 22px; }
-        @media (max-width: 500px) {
-            .page-img { height: 220px; max-width: 220px; }
-            h1 { font-size: 24px; }
-            h2 { font-size: 20px; }
-            .btn { padding: 10px 20px; font-size: 14px; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .page {
+            display: none;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 5px solid #ffb7c5;
+            box-shadow: 0 10px 30px rgba(255, 183, 197, 0.4);
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #e91e63;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            margin: 10px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #00b894 0%, #55efc4 100%);
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
+        }
+
+        .btn-yes:hover {
+            box-shadow: 0 8px 20px rgba(0, 184, 148, 0.6);
+        }
+
+        .btn-no {
+            background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.4);
+            position: relative;
+        }
+
+        .btn-choice {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            background: linear-gradient(135deg, #a29bfe 0%, #dfe6e9 100%);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 3px solid #ffb7c5;
+            border-radius: 15px;
+            font-size: 1em;
+            resize: vertical;
+            margin: 15px 0;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #ff6b9d;
+        }
+
+        .hearts {
+            position: fixed;
+            font-size: 20px;
+            animation: float 3s ease-in infinite;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .final-details {
+            background: linear-gradient(135deg, #fff5f8 0%, #ffe0eb 100%);
+            padding: 20px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 3px dashed #ff6b9d;
+        }
+
+        .place-card {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .place-card h3 {
+            color: #d63384;
+            margin-bottom: 10px;
+        }
+
+        .place-card p {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .emoji-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .page-img {
+                width: 150px;
+                height: 150px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="emoji-rain" id="emojiRain"></div>
+    
     <div class="container">
-        <!-- СТРАНИЦА 1 -->
+        <!-- СТРАНИЦА 1: ПРИГЛАШЕНИЕ -->
         <div id="page1" class="page active">
-            <img class="page-img" src="images/invite.jfif" alt="Приглашение" onerror="this.src='https://placehold.co/300x300/ffb7c5/2d1b2e?text=🌸'">
-            <h1>🌸 Хочешь пойти гулять?(* ^ ω ^) 🌸</h1>
-            <button class="btn btn-yes" onclick="nextPage(2)">💖 Да! 💖</button>
-            <button class="btn btn-no" id="noBtn" onclick="alert('😊 Ответ только «Да»! 😊')" onmouseover="moveNoButton()">😅 Нет</button>
+            <img class="page-img" src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=400&h=400&fit=crop" alt="Приглашение">
+            <h1>💖 Хочешь пойти со мной на свидание? 💖<br><small style="font-size: 0.6em;">(´｡• ω •｡`)</small></h1>
+            <button class="btn btn-yes" onclick="nextPage(2)">✨ Да, конечно! ✨</button>
+            <button class="btn btn-no" id="noBtn" onmouseover="moveNoButton()">😅 Нет</button>
         </div>
 
-        <!-- СТРАНИЦА 2 -->
+        <!-- СТРАНИЦА 2: ВЫБОР ДАТЫ -->
         <div id="page2" class="page">
-            <img class="page-img" src="images/date.jfif" alt="Выбор даты" onerror="this.src='https://placehold.co/300x300/ffb7c5/2d1b2e?text=📅'">
-            <h2>📅 Когда идём искать сирень?(´｡• ω •｡`) 📅</h2>
-            <button class="btn btn-choice" onclick="selectDate('6 июня')">🗓️ 6 июня</button>
-            <button class="btn btn-choice" onclick="selectDate('7 июня')">🗓️ 7 июня</button>
-            <button class="btn btn-choice" onclick="selectDate('8 июня')">🗓️ 8 июня</button>
+            <img class="page-img" src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=400&fit=crop" alt="Дата">
+            <h2>📅 Когда пойдём? 📅<br><small style="font-size: 0.6em;">(≧◡)</small></h2>
+            <button class="btn btn-choice" onclick="selectDate('В эти выходные')">🌸 В эти выходные</button>
+            <button class="btn btn-choice" onclick="selectDate('На следующей неделе')">🌺 На следующей неделе</button>
+            <button class="btn btn-choice" onclick="selectDate('Когда тебе удобно')">💕 Когда тебе удобно</button>
+            <input type="date" id="customDate" class="btn btn-choice" style="text-align: center; cursor: pointer;" onchange="selectDate(this.value)">
         </div>
 
-        <!-- СТРАНИЦА 3 -->
+        <!-- СТРАНИЦА 3: ПОЖЕЛАНИЯ -->
         <div id="page3" class="page">
-            <img class="page-img" src="images/wish.jfif" alt="Пожелания" onerror="this.src='https://placehold.co/300x300/ffb7c5/2d1b2e?text=💌'">
-            <h2>💌 Напиши пожелания 💌</h2>
-            <textarea id="userWish" rows="4" placeholder="Напиши куда хочешь (≧◡≦). ❤️"></textarea>
+            <img class="page-img" src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=400&fit=crop" alt="Пожелания">
+            <h2>💌 Есть пожелания? 💌<br><small style="font-size: 0.6em;">(◕◕✿)</small></h2>
+            <textarea id="userWish" rows="4" placeholder="Напиши что хочешь... Может, особое место или активность? ❤️"></textarea>
             <br>
-            <button class="btn btn-yes" onclick="showFinalResult()">✨ Показать итог ✨</button>
+            <button class="btn btn-yes" onclick="showFinalResult()">🎉 Продолжить 🎉</button>
         </div>
 
-        <!-- СТРАНИЦА 4 -->
+        <!-- СТРАНИЦА 4: ФИНАЛ -->
         <div id="page4" class="page">
-            <img class="page-img" src="images/final.jfif" alt="Итог" onerror="this.src='https://placehold.co/300x300/ffb7c5/2d1b2e?text=🎉'">
-            <h2>🎉 Всё готово! Жду с нетерпением! 🎉</h2>
-            <table>
-                <tr>
-                    <td>📅 Дата:</td>
-                    <td id="finalDate">—</td>
-                </tr>
-                <tr>
-                    <td>💭 Пожелание:</td>
-                    <td id="finalWish">—</td>
-                </tr>
-            </table>
-            <button class="btn btn-yes" onclick="restart()">🔄 Начать заново</button>
+            <img class="page-img" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=400&fit=crop" alt="Свидание">
+            <h1>🌟 Ура! Мы идём на свидание! 🌟<br><small style="font-size: 0.6em;">(ﾉ^ヮ^) ﾉ*:・ﾟ✧</small></h1>
+            
+            <div class="final-details">
+                <h2>📍 Программа нашего свидания:</h2>
+                
+                <div class="place-card">
+                    <h3>🦁 1. Экопарк "Биосфера"</h3>
+                    <p>📍 ул. Комфортная, 15а<br>
+                    🕐 10:00 - 20:00<br>
+                    🐰 Контактный зоопарк, шоу нерпят, более 50 видов животных!<br>
+                    💰 Вход: ~500-700₽</p>
+                </div>
+
+                <div class="place-card">
+                    <h3>🐱 2. Котокафе "Меховое кафе"</h3>
+                    <p>📍 ул. Академика Королёва, 27<br>
+                    🕐 Уютное место с 20+ котиками<br>
+                    ☕ Вкусный кофе и выпечка<br>
+                    💰 От 395₽ за час</p>
+                </div>
+
+                <div class="place-card">
+                    <h3>📅 Когда: <span id="selectedDateDisplay">Скоро уточним!</span></h3>
+                    <h3>💝 Пожелания: <span id="wishDisplay">Обсудим вместе!</span></h3>
+                </div>
+            </div>
+
+            <button class="btn btn-yes" onclick="createHeartRain()">💕 Я согласна! 💕</button>
+            <p style="margin-top: 20px; color: #d63384; font-size: 0.9em;">
+                Жду нашей встречи! <br>
+                <small>С любовью ❤️</small>
+            </p>
         </div>
     </div>
 
     <script>
+        let selectedDate = '';
+        
         function nextPage(pageNum) {
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
             document.getElementById('page' + pageNum).classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            if (pageNum === 2) {
+                createFloatingHearts();
+            }
         }
-        
-        function selectDate(date) {
-            document.getElementById('finalDate').innerText = date;
-            nextPage(3);
-        }
-        
-        function showFinalResult() {
-            let wish = document.getElementById('userWish').value.trim();
-            if (wish === '') wish = '💖 Сюрприз от тебя! 💖';
-            document.getElementById('finalWish').innerText = wish;
-            nextPage(4);
-        }
-        
+
         function moveNoButton() {
             const btn = document.getElementById('noBtn');
-            const maxX = window.innerWidth - btn.offsetWidth - 30;
-            const maxY = window.innerHeight - btn.offsetHeight - 30;
-            btn.style.position = 'fixed';
-            btn.style.left = Math.random() * Math.max(0, maxX) + 'px';
-            btn.style.top = Math.random() * Math.max(0, maxY) + 'px';
+            const container = document.querySelector('.container');
+            const maxX = container.offsetWidth - btn.offsetWidth - 40;
+            const maxY = container.offsetHeight - btn.offsetHeight - 40;
+            
+            const randomX = Math.random() * maxX - (maxX / 2);
+            const randomY = Math.random() * maxY - (maxY / 2);
+            
+            btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            btn.textContent = ['😅', '🙈', '😳', '💦', '🥺', ''][Math.floor(Math.random() * 6)] + ' Нет';
         }
-        
-        function restart() {
-            document.getElementById('finalDate').innerText = '—';
-            document.getElementById('finalWish').innerText = '—';
-            document.getElementById('userWish').value = '';
-            nextPage(1);
-            const noBtn = document.getElementById('noBtn');
-            noBtn.style.position = 'relative';
-            noBtn.style.left = 'auto';
-            noBtn.style.top = 'auto';
+
+        function selectDate(date) {
+            selectedDate = date;
+            document.getElementById('selectedDateDisplay').textContent = date;
+            nextPage(3);
+            createFloatingHearts();
         }
-        
-        window.addEventListener('resize', function() {
-            const noBtn = document.getElementById('noBtn');
-            if (noBtn.style.position === 'fixed') {
-                noBtn.style.position = 'relative';
+
+        function showFinalResult() {
+            const wish = document.getElementById('userWish').value;
+            document.getElementById('wishDisplay').textContent = wish || 'Обсудим вместе!';
+            nextPage(4);
+            createHeartRain();
+        }
+
+        function createFloatingHearts() {
+            const hearts = ['💖', '', '💗', '', '💝'];
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'hearts';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 4000);
+                }, i * 200);
             }
-        });
+        }
+
+        function createHeartRain() {
+            const emojis = ['💖', '', '💗', '', '💝', '', '🌺', '🦋', '✨', '💫'];
+            const rainContainer = document.getElementById('emojiRain');
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'hearts';
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    emoji.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                    rainContainer.appendChild(emoji);
+                    setTimeout(() => emoji.remove(), 6000);
+                }, i * 100);
+            }
+        }
+
+        // Предотвращаем уход со страницы
+        window.onbeforeunload = function() {
+            if (document.getElementById('page4').classList.contains('active')) {
+                return "Ты точно хочешь уйти? Свидание же! 💕";
+            }
+        };
     </script>
 </body>
 </html>
