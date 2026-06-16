@@ -31,7 +31,7 @@
             width: 100%;
             text-align: center;
             position: relative;
-            overflow: hidden;
+            overflow: visible; /* Изменил с hidden на visible, чтобы кнопка не обрезалась */
         }
 
         .container::before {
@@ -44,6 +44,7 @@
             background: radial-gradient(circle, rgba(255,182,193,0.1) 0%, transparent 70%);
             animation: pulse 4s ease-in-out infinite;
             z-index: 0;
+            pointer-events: none;
         }
 
         @keyframes pulse {
@@ -102,6 +103,8 @@
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
             font-weight: bold;
+            position: relative; /* Важно для кнопки Нет */
+            z-index: 10;
         }
 
         .btn:hover {
@@ -125,7 +128,7 @@
         .btn-no {
             background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
             box-shadow: 0 5px 15px rgba(253, 121, 168, 0.4);
-            position: relative;
+            /* Убрал position: relative отсюда, чтобы не конфликтовало с JS */
         }
 
         .btn-choice {
@@ -154,8 +157,8 @@
 
         .hearts {
             position: fixed;
-            font-size: 20px;
-            animation: float 3s ease-in infinite;
+            font-size: 24px; /* Чуть крупнее */
+            animation: float 4s ease-in infinite;
             pointer-events: none;
             z-index: 1000;
         }
@@ -229,10 +232,11 @@
     <div class="container">
         <!-- СТРАНИЦА 1: ПРИГЛАШЕНИЕ -->
         <div id="page1" class="page active">
-            <img class="page-img" src="images/invite.jpg" alt="Приглашение" onerror="this.src='https://placehold.co/400x400/ffb7c5/2d1b2e?text=🌸'">
-            <h1>🌸 Пойдём со мной на прогулочку? 🌸<br><small style="font-size: 0.6em;">(´｡• ω •｡`)</small></h1>
+            <img class="page-img" src="images/invite.jpg" alt="Приглашение" onerror="this.src='https://placehold.co/400x400/ffb7c5/2d1b2e?text='">
+            <h1> Пойдём со мной на прогулочку? 🌸<br><small style="font-size: 0.6em;">(´｡• ω •｡`)</small></h1>
             <button class="btn btn-yes" onclick="nextPage(2)">✨ Да, конечно! ✨</button>
-            <button class="btn btn-no" id="noBtn" onmouseover="moveNoButton()">😅 Нет</button>
+            <!-- Добавил touchstart для мобильных -->
+            <button class="btn btn-no" id="noBtn" onmouseover="moveNoButton()" ontouchstart="moveNoButton()">😅 Нет</button>
         </div>
 
         <!-- СТРАНИЦА 2: ВЫБОР ДАТЫ -->
@@ -241,7 +245,7 @@
             <h2>📅 Когда пойдём? 📅<br><small style="font-size: 0.6em;">(≧◡)</small></h2>
             <button class="btn btn-choice" onclick="selectDate('30 июня')">🗓️ 30 июня</button>
             <button class="btn btn-choice" onclick="selectDate('1 июля')">🗓️ 1 июля</button>
-            <button class="btn btn-choice" onclick="selectDate('2 июля')">🗓️ 2 июля</button>
+            <button class="btn btn-choice" onclick="selectDate('2 июля')">️ 2 июля</button>
             <button class="btn btn-choice" onclick="selectDate('3 июля')">🗓️ 3 июля</button>
         </div>
 
@@ -251,7 +255,7 @@
             <h2>🌺 Есть пожелания? 🌺<br><small style="font-size: 0.6em;">(◕◕)</small></h2>
             <textarea id="userWish" rows="4" placeholder="Напиши что хочешь... Может, особое место или активность? 💐"></textarea>
             <br>
-            <button class="btn btn-yes" onclick="showFinalResult()">🌸 Продолжить 🌸</button>
+            <button class="btn btn-yes" onclick="showFinalResult()">🌸 Продолжить </button>
         </div>
 
         <!-- СТРАНИЦА 4: ФИНАЛ -->
@@ -260,11 +264,11 @@
             <h1>🌟 Ура! Идём на прогулочку! 🌟<br><small style="font-size: 0.6em;">(ﾉ^ヮ^) ﾉ*:・ﾟ✧</small></h1>
             
             <div class="final-details">
-                <h2>📍 Программа нашей прогулки:</h2>
+                <h2> ^_^:</h2>
                 
                 <div class="place-card">
                     <h3>🦁 1. Экопарк "Биосфера"</h3>
-                    <p>📍 ул. Комфортная, 15а<br>
+                    <p> ул. Комфортная, 15а<br>
                     🕐 10:00 - 20:00<br>
                     🐰 Контактный зоопарк, шоу нерпят, более 50 видов животных<br>
                     
@@ -284,7 +288,7 @@
                 </div>
             </div>
 
-            <button class="btn btn-yes" onclick="createHeartRain()">🌸 Я согласна! 🌸</button>
+            <button class="btn btn-yes" onclick="createHeartRain()"> ткни на меня 🌸</button>
             <p style="margin-top: 20px; color: #d63384; font-size: 0.9em;">
                 Жду нашей прогулки <br>
                 <small>⊼_⊼</small>
@@ -306,17 +310,45 @@
             }
         }
 
+        // ИСПРАВЛЕННАЯ ФУНКЦИЯ ДЛЯ КНОПКИ "НЕТ"
         function moveNoButton() {
             const btn = document.getElementById('noBtn');
             const container = document.querySelector('.container');
-            const maxX = container.offsetWidth - btn.offsetWidth - 40;
-            const maxY = container.offsetHeight - btn.offsetHeight - 40;
             
-            const randomX = Math.random() * maxX - (maxX / 2);
-            const randomY = Math.random() * maxY - (maxY / 2);
+            // Получаем размеры контейнера и кнопки
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = btn.getBoundingClientRect();
             
-            btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
-            btn.textContent = ['😅', '🙈', '', '💦', '', ''][Math.floor(Math.random() * 6)] + ' Нет';
+            // Вычисляем максимально возможные координаты внутри контейнера
+            // Ограничиваем движение пределами контейнера
+            const maxX = containerRect.width - btnRect.width - 40;
+            const maxY = containerRect.height - btnRect.height - 40;
+            
+            // Генерируем случайные координаты
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            // Применяем трансформацию относительно начальной позиции кнопки
+            // Используем translate, но ограничиваем его пределами контейнера
+            // Для этого нужно знать начальную позицию кнопки относительно контейнера
+            
+            // Более простой способ: используем absolute positioning внутри container
+            // Но чтобы не ломать верстку, используем transform с ограничениями
+            
+            // Находим текущую позицию кнопки относительно контейнера
+            const currentLeft = btn.offsetLeft;
+            const currentTop = btn.offsetTop;
+            
+            // Новые координаты (относительно текущей позиции, но в пределах контейнера)
+            const newLeft = Math.max(0, Math.min(maxX, randomX));
+            const newTop = Math.max(0, Math.min(maxY, randomY));
+            
+            // Применяем смещение
+            btn.style.transform = `translate(${newLeft - currentLeft}px, ${newTop - currentTop}px)`;
+            
+            // Меняем текст случайно
+            const texts = ['😅', '🙈', '', '💦', '', ''];
+            btn.textContent = texts[Math.floor(Math.random() * texts.length)] + ' Нет';
         }
 
         function selectDate(date) {
@@ -349,12 +381,14 @@
             }
         }
 
+        // УВЕЛИЧЕННОЕ КОЛИЧЕСТВО ЭМОДЗИ В ФИНАЛЕ
         function createHeartRain() {
-            // Меньше эмодзи и больше цветочков
-            const emojis = ['🌸', '💐', '🌺', '🌷', '🌼', '✨', '🦋'];
+            // Больше разных милых эмодзи
+            const emojis = ['🌸', '💐', '', '🌷', '🌼', '✨', '🦋', '', '🦄', '️', '⭐', '💖', '🎀', '🍬'];
             const rainContainer = document.getElementById('emojiRain');
             
-            for (let i = 0; i < 15; i++) {
+            // Увеличил количество с 15 до 30
+            for (let i = 0; i < 30; i++) {
                 setTimeout(() => {
                     const emoji = document.createElement('div');
                     emoji.className = 'hearts';
@@ -364,7 +398,7 @@
                     emoji.style.animationDuration = (Math.random() * 3 + 3) + 's';
                     rainContainer.appendChild(emoji);
                     setTimeout(() => emoji.remove(), 6000);
-                }, i * 150);
+                }, i * 100); // Уменьшил интервал для более плотного дождя
             }
         }
 
