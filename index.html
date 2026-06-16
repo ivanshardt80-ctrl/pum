@@ -229,7 +229,7 @@
     <div class="container">
         <!-- СТРАНИЦА 1: ПРИГЛАШЕНИЕ -->
         <div id="page1" class="page active">
-            <img class="page-img" src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=400&h=400&fit=crop" alt="Приглашение">
+            <img class="page-img" src="images/invite.jpg" alt="Приглашение" onerror="this.src='https://placehold.co/400x400/ffb7c5/2d1b2e?text=🌸'">
             <h1>🌸 Пойдём со мной на прогулочку? 🌸<br><small style="font-size: 0.6em;">(´｡• ω •｡`)</small></h1>
             <button class="btn btn-yes" onclick="nextPage(2)">✨ Да, конечно! ✨</button>
             <button class="btn btn-no" id="noBtn" onmouseover="moveNoButton()">😅 Нет</button>
@@ -237,7 +237,7 @@
 
         <!-- СТРАНИЦА 2: ВЫБОР ДАТЫ -->
         <div id="page2" class="page">
-            <img class="page-img" src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=400&fit=crop" alt="Дата">
+            <img class="page-img" src="images/date.jpg" alt="Дата" onerror="this.src='https://placehold.co/400x400/ffb7c5/2d1b2e?text=📅'">
             <h2>📅 Когда пойдём? 📅<br><small style="font-size: 0.6em;">(≧◡)</small></h2>
             <button class="btn btn-choice" onclick="selectDate('30 июня')">🗓️ 30 июня</button>
             <button class="btn btn-choice" onclick="selectDate('1 июля')">🗓️ 1 июля</button>
@@ -247,7 +247,7 @@
 
         <!-- СТРАНИЦА 3: ПОЖЕЛАНИЯ -->
         <div id="page3" class="page">
-            <img class="page-img" src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=400&fit=crop" alt="Пожелания">
+            <img class="page-img" src="images/wish.jpg" alt="Пожелания" onerror="this.src='https://placehold.co/400x400/ffb7c5/2d1b2e?text=💌'">
             <h2>🌺 Есть пожелания? 🌺<br><small style="font-size: 0.6em;">(◕◕)</small></h2>
             <textarea id="userWish" rows="4" placeholder="Напиши что хочешь... Может, особое место или активность? 💐"></textarea>
             <br>
@@ -256,7 +256,7 @@
 
         <!-- СТРАНИЦА 4: ФИНАЛ -->
         <div id="page4" class="page">
-            <img class="page-img" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=400&fit=crop" alt="Прогулка">
+            <img class="page-img" src="images/final.jpg" alt="Прогулка" onerror="this.src='https://placehold.co/400x400/ffb7c5/2d1b2e?text=💕'">
             <h1>🌟 Ура! Идём на прогулочку! 🌟<br><small style="font-size: 0.6em;">(ﾉ^ヮ^) ﾉ*:・ﾟ✧</small></h1>
             
             <div class="final-details">
@@ -266,28 +266,28 @@
                     <h3>🦁 1. Экопарк "Биосфера"</h3>
                     <p>📍 ул. Комфортная, 15а<br>
                     🕐 10:00 - 20:00<br>
-                    🐰 Контактный зоопарк, шоу нерпят, более 50 видов животных!<br>
-                    💰 Вход: ~500-700₽</p>
+                    🐰 Контактный зоопарк, шоу нерпят, более 50 видов животных<br>
+                    
                 </div>
 
                 <div class="place-card">
                     <h3>🐱 2. Котокафе "Меховое кафе"</h3>
                     <p>📍 ул. Академика Королёва, 27<br>
                     🕐 Уютное место с 20+ котиками<br>
-                    ☕ Вкусный кофе и выпечка<br>
-                    💰 От 395₽ за час</p>
+                    ☕ Вкусный кофе(чай) и выпечка<br>
+                   
                 </div>
 
                 <div class="place-card">
-                    <h3>📅 Когда: <span id="selectedDateDisplay">Скоро уточним!</span></h3>
-                    <h3>💝 Пожелания: <span id="wishDisplay">Обсудим вместе!</span></h3>
+                    <h3>📅 Когда: <span id="selectedDateDisplay">Скоро уточним</span></h3>
+                    <h3>💝 Пожелания: <span id="wishDisplay">Обсудим вместе</span></h3>
                 </div>
             </div>
 
             <button class="btn btn-yes" onclick="createHeartRain()">🌸 Я согласна! 🌸</button>
             <p style="margin-top: 20px; color: #d63384; font-size: 0.9em;">
-                Жду нашей прогулки! <br>
-                <small>С любовью 💐</small>
+                Жду нашей прогулки <br>
+                <small>⊼_⊼</small>
             </p>
         </div>
     </div>
